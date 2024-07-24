@@ -22,9 +22,14 @@ window.addEventListener("load",()=>{
                 body: JSON.stringify({ name, size, species }),
               });
               const data = await response.json();
+
               if (data) {
                 document.querySelector("#mensaje_register_response").innerText = data.mensaje;
               }
+              document.querySelector("#text_name").value='';
+              document.querySelector("#text_size").value='';
+              document.querySelector("#text_species").value='';
+
         }catch(e){
             alert(e);
         }
