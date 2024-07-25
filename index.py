@@ -25,6 +25,9 @@ def enviar():
     except Exception as e:
         return jsonify({'mensaje': f"Error: {str(e)}"}), 500
 
+@app.route('/listar',methods=['GET'])
+def listar():
+    return jsonify({'mensaje' : cargaHabitantes()})
 
 class Serpiente:
     def __init__(self, nombre,medida,especie):
@@ -63,9 +66,6 @@ class Terrario:
     
     def area(self):
         return self.ancho*self.largo
-    
-    def habitantes(self):
-        return self.habitantes
     
 
    
