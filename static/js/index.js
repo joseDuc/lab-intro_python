@@ -2,26 +2,52 @@
 window.addEventListener("load", () => {
   const f = document.querySelector("#form_insert_animal");
   f.addEventListener('submit', enviaFormInsert);
-  document.querySelector("#form_insert_animal").onsubmit = async function (event) {
-  };
+
+  cargaTitulo();
+  const name = document.querySelector('#name');
+  name.addEventListener('focus', borraMensaje);
+  const size = document.querySelector('#size');
+  size.addEventListener('focus', borraMensaje);
+  const species = document.querySelector('#species');
+  species.addEventListener('focus', borraMensaje);
   cargaAnimales();
 });
 
+function borraMensaje(e) {
+  e.preventDefault();
+  let m = document.querySelector("#mensaje_register_response");
+  m.innerHTML = '';
+  e.target.classList.remove('errorInput');
+
+}
 async function enviaFormInsert(e) {
   e.preventDefault();
 
   document.querySelector("#mensaje_register_response").innerText = "";
-  const name = document.querySelector("#name").value;
-  const size = document.querySelector("#size").value;
-  const species = document.querySelector("#species").value;
-
+  const inputName = document.querySelector("#name");
+  const inputSize = document.querySelector("#size");
+  const inputSpecies = document.querySelector("#species");
+  const name = inputName.value;
+  const size = inputSize.value;
+  const species = inputSpecies.value;
+  inputName.classList.remove('errorInput');
+  inputSize.classList.remove('errorInput');
+  inputSpecies.classList.remove('errorInput');
+  if (!name) {
+    inputName.classList.toggle('errorInput');
+  }
+  if (!size) {
+    inputSize.classList.toggle('errorInput');
+  }
+  if (!species) {
+    inputSpecies.classList.toggle('errorInput');
+  }
   if (!name || !size || !species) {
     alert("Faltan datos para guardar");
     return;
   }
 
   try {
-
     const response = await fetch("enviar", {
       method: "POST",
       headers: {
@@ -61,6 +87,7 @@ async function cargaAnimales() {
     alert(e);
   }
 }
+
 function installAnimals(animals) {
   if (animals) {
     const l = document.querySelector('#list_animal');
@@ -69,21 +96,16 @@ function installAnimals(animals) {
       c.innerHTML = '';
       const t = document.createElement('table');
       const tr = document.createElement('tr');
-      const th = document.createElement('th');
 
       let html = '<th>nombre</th>';
-      html += '<th>medida</th>';
+      html += '<th>medida mts</th>';
       html += '<th>especie</th>';
       html += '<th>accion</th>';
       tr.innerHTML = html
       t.appendChild(tr);
-    console.log(animals)
-      html='<td>' + animals[0].name +'</td>';
-       html+='<td>' + animals[0].size +'</td>';
-        html+='<td>' + animals[0].species +'</td>';
-      const tr1=document.createElement('tr');
-      tr1.innerHTML=html;
-      t.appendChild(tr1);
+      for (i = 0; i < animals.length; ++i) {
+        t.appendChild(creaRowAnimal(animals[i]));
+      }
       c.appendChild(t);
     }
 
@@ -92,15 +114,31 @@ function installAnimals(animals) {
 }
 function creaRowAnimal(animal) {
   if (animal) {
-    const dr = document.createElement('tr');
-    let html  = '<td>' + $(animal.name) + '</td>';
-    html += '<td>' + $(animal.size) + '</td>';
-    html = '<td>' + $(animal.species) + '</td>';
-    dr.innerHTML = html;
-    return dr;
-  }else{
+    const tr = document.createElement('tr');
+    let html = '<td>' + animal.name + '</td>';
+    html += '<td>' + animal.size + '</td>';
+    html += '<td>' + animal.species + '</td>';
+    tr.innerHTML = html;
+    return tr;
+  } else {
     return null;
   }
- 
 
+
+}
+async function cargaTitulo() {
+  try {
+    const response = await fetch("nombreTerrario", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    const titulo = document.querySelector('.title_header');
+    titulo.innerHTML = data.message;
+
+  } catch (e) {
+    alert(e);
+  }
 }

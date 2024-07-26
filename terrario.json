@@ -1,32 +1,67 @@
 [
     {
-        "name": "asdca",
+        "name": "Mamba Negra",
+        "size": 4.5,
+        "species": "El\u00e1pido"
+    },
+    {
+        "name": "Pit\u00f3n de Seba",
+        "size": 6,
+        "species": "Pit\u00f3nido"
+    },
+    {
+        "name": "Serpiente de \u00c1rbol del Gab\u00f3n",
+        "size": 2,
+        "species": "Viperido"
+    },
+    {
+        "name": "Cobra Egipcia",
+        "size": 2.5,
+        "species": "El\u00e1pido"
+    },
+    {
+        "name": "Serpiente de Arena del S\u00e1hara",
+        "size": 4.5,
+        "species": "Viperido"
+    },
+    {
+        "name": "avfadva",
         "size": 4.0,
-        "species": "dfsvsdfv"
+        "species": "adcvadcv"
     },
     {
-        "name": "asdcasdc",
+        "name": "sfgsdfg",
         "size": 3.0,
-        "species": "adscads"
+        "species": "sfdgsdfg"
     },
     {
-        "name": "adcfadsc",
+        "name": "adscasdcads",
         "size": 3.0,
-        "species": "qcq"
+        "species": "sdfvsdfvsdfvsdfvsdfv"
     },
     {
-        "name": "sdfsdf",
-        "size": 43.0,
-        "species": "wvfw"
+        "name": "svsdfvsdfv",
+        "size": 5.0,
+        "species": "sfvgsdfgbsfg"
     },
     {
-        "name": "wfvwf",
-        "size": 3.0,
-        "species": "wfvwfv"
-    },
-    {
-        "name": "dvfsdfv",
+        "name": "casdfvs",
         "size": 4.0,
-        "species": "sdfvsdvf"
+        "species": "sdfvsdf"
+    },
+    {
+        "name": "dgdn",
+        "size": 5.0,
+        "species": "ddndn"
+    },
+    {
+        "name": "cvadfvadf",
+        "size": 4.0,
+        "species": "adscvfad"
+    },
+    {
+        "name": "adcadscda",
+        "size": 4.0,
+        "species": "adrefqerf"
     }
 ]

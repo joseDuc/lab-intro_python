@@ -35,9 +35,8 @@ def  cargaAnimales():
         return jsonify({f'message': animals})
     except Exception as e:
         return jsonify({'message':  f"SSSerror: {str(e)}"}),500
+    
 @app.route('/nombreTerrario',methods=['GET'])
-
-
 def nombreTerrario():
     return ({'message':'Terrario del África'})
     
@@ -57,14 +56,14 @@ class Terrario:
         self.name=name
         self.width=width
         self.long=long
-        self.animals=[0]
+        self.animals=[]
         
     def agregaHabitante(self,snake):
         try:
-            if type(snake) is Snake:
+            if isinstance(snake,Snake):
                 self.animals.append(snake)
             else:
-                print(f"El objeto {snake} no es una serpiente.")
+                print(f"El objetoX {snake} no es una serpiente.")
             return self.animals[self.animals.len-1]
         except Exception as e:
             return (f'error agregando error: {e}')
@@ -79,7 +78,7 @@ class Terrario:
                 print(f'name:{s.name} size:{s.size} species:{s.species}')
 
     def area(self):
-        return (float(self.width) * float(self.long))
+        return float(self.width) * float(self.long)
     
 
    
@@ -93,11 +92,20 @@ def cargaHabitantes():
             return animals
     else:
         return []
-            
-def descargaHabitantes(terrario):
-    if terrario:
-        with open(nombreDeArchivo(), 'w') as f:
-            json.dump(terrario.animals, f, indent=4)
+           
+def prepareAnimalDescarga(animals):
+    a=[]
+    for s in animals:
+        a.append(({'name': s.name, 'size': s.size, 'species': s.species}))
+    return a
+       
+def descargaHabitantes(animals):
+    if animals:
+       a=prepareAnimalDescarga(animals)
+           
+    with open(nombreDeArchivo(), 'w') as f:
+        json.dump(a, f, indent=4)
+
    
 def descargaHabitante(snake):
     if snake:
@@ -110,30 +118,30 @@ def descargaHabitante(snake):
    
 
 def main():
+    print (f'Crea terrario: ')
     terrario = Terrario('África', 5.40, 7.60)
+    print (f'nombre del terrario: {terrario.name}')
     terrario.agregaHabitante(Snake('Mamba Negra',4.5,'Elápido'))
     terrario.agregaHabitante(Snake('Pitón de Seba',6,'Pitónido'))
     terrario.agregaHabitante(Snake('Serpiente de Árbol del Gabón',2,'Viperido'))
     terrario.agregaHabitante(Snake('Cobra Egipcia',2.5,'Elápido'))
     terrario.agregaHabitante(Snake('Serpiente de Arena del Sáhara',4.5,'Viperido'))
-    
+    print (f'Muestra terrario: ')
     terrario.muestraHabitantes()
 
-    
     print (f'Área del terrario: {terrario.area}')
     
    
 
     for a in terrario.animals:
         a.move()
+
+    descargaHabitantes(terrario.animals)
+
     
-    h=cargaHabitantes()
-    if h:
-        for s in h:
-            terrario.agregaHabitante(s)
-            
  #INICIO   
 if __name__ == '__main__':
+ 
     app.run(debug=True)
     
     
